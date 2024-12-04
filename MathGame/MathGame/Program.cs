@@ -63,6 +63,58 @@ while (!exitGame)
             }
         }
 
+        Random rnd = new Random();
+
+        for(var i = 0; i <= 5; i++)
+        {
+            Console.Clear();
+            Console.WriteLine($"Round {i} out of 5");
+            int random1 = rnd.Next(0, 11);
+            int random2 = rnd.Next(1, 11);
+
+            while(random1 > random2 && chosenOperation == "/")
+            {
+                random1 = rnd.Next(0, 11);
+            }
+
+            while (random1 % 2 != 0 && chosenOperation == "/")
+            {
+                random1 = rnd.Next(0, 11);
+            }
+
+
+
+
+            Console.WriteLine($"{random1} {chosenOperation} {random2}");
+            var userInputAnswer = int.TryParse(Console.ReadLine(), out int userAnswer);
+            int actualAnswer = 0;
+
+            switch(chosenOperation)
+            {
+                case "+":
+                    actualAnswer = random1 + random2;
+                    break;
+                case "-":
+                    actualAnswer = random1 - random2;
+                    break;
+                case "*":
+                    actualAnswer = random1 * random2;
+                    break;
+                case "/" :
+                    actualAnswer = random1 / random2;
+                    break;
+            }
+            Console.WriteLine($"Your answer: {userInputAnswer}, Actual answer: {actualAnswer}");
+            Console.ReadLine();
+            Console.Clear();
+        }
+
+
+
+
+
+
+        /**
         Console.WriteLine("Input a number: ");
         var inputNr = Console.ReadLine();
 
@@ -95,8 +147,10 @@ while (!exitGame)
         }
         gameHistory.Add($"{inputNr} {chosenOperation} {inputNr2} ");
         chosenOperation = "";
+        **/
     }
-   
+
+
 }
 
 public enum MenuOptions
