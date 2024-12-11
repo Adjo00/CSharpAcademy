@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 
 Console.WriteLine("Welcome to Math Game!");
 
@@ -44,7 +45,7 @@ while (!exitGame)
         }
         continue;
     }
-
+    var time = new Stopwatch();
     if (chosenMenuOption == MenuOptions.Play)
     {
         while (!operations.Contains(chosenOperation))
@@ -64,8 +65,9 @@ while (!exitGame)
         }
 
         Random rnd = new Random();
+        time.Start();
 
-        for(var i = 0; i <= 5; i++)
+        for (var i = 0; i <= 5; i++)
         {
             Console.Clear();
             Console.WriteLine($"Round {i} out of 5");
@@ -81,9 +83,6 @@ while (!exitGame)
             {
                 random1 = rnd.Next(0, 11);
             }
-
-
-
 
             Console.WriteLine($"{random1} {chosenOperation} {random2}");
             var userInputAnswer = int.TryParse(Console.ReadLine(), out int userAnswer);
@@ -108,48 +107,26 @@ while (!exitGame)
             Console.ReadLine();
             Console.Clear();
         }
-
-
-
-
-
-
-        /**
-        Console.WriteLine("Input a number: ");
-        var inputNr = Console.ReadLine();
-
-        if (int.TryParse(inputNr, out int j))
-        {
-            Console.WriteLine($"You entered: {j}, Type: {j.GetType()}");
-            validInput = true;
-            
-        }
-        else
-        {
-            Console.Clear();
-            Console.WriteLine("Please enter a valid number.");
-            validInput = false;
-        }
-
-        Console.WriteLine("Input a second number: ");
-        var inputNr2 = Console.ReadLine();
-        if(int.TryParse(inputNr2, out int k))
-        {
-            Console.WriteLine($"You entered: {k}, Type: {k.GetType()}");
-            validInput = true;
-           
-        }
-        else
-        {
-            Console.Clear();
-            Console.WriteLine("Please enter a valid number.");
-            validInput = false;
-        }
-        gameHistory.Add($"{inputNr} {chosenOperation} {inputNr2} ");
-        chosenOperation = "";
-        **/
     }
+    time.Stop();
+    TimeSpan ts = time.Elapsed;
+    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            ts.Hours, ts.Minutes, ts.Seconds,
+            ts.Milliseconds / 10);
+    Console.WriteLine($"Time spent playing: {elapsedTime} \n Would you like to play again? (y/n)");
+    if(Console.ReadLine() == "y")
+    {
+        Console.WriteLine(Console.ReadLine
+            ());
+        chosenMenuOption = MenuOptions.Play;
+        if (Console.ReadLine() == "y")
+        {
+            chosenMenuOption = MenuOptions.MainMenu;
+            chosenMenuOption = MenuOptions.Play;
 
+        }
+    }
+    
 
 }
 
@@ -159,4 +136,19 @@ public enum MenuOptions
     Play = 1,
     History = 2,
     Exit = 3
+}
+
+public enum Difficulty
+{
+    Easy = 1,
+    Medium = 2,
+    Hard = 3
+}
+
+public enum Operations 
+{
+    Addition,
+    Subtraction,
+    Multiplication,
+    Division,
 }
